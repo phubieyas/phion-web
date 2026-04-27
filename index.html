@@ -25,12 +25,15 @@
   *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
   html { scroll-behavior:smooth; }
 
+  html, body {
+    overflow-x:hidden;
+  }
+
   body {
     background:var(--bg);
     color:var(--text);
     font-family:'Plus Jakarta Sans',sans-serif;
     font-size:16px; line-height:1.6;
-    overflow-x:hidden;
   }
 
   h1,h2,h3,h4 { font-family:'Syne',sans-serif; }
@@ -51,6 +54,13 @@
   .nav-links a:hover { color:var(--text); }
   .nav-btn { background:var(--accent) !important; color:#fff !important; padding:.6rem 1.5rem; border-radius:6px; font-weight:700 !important; transition:background .2s !important; }
   .nav-btn:hover { background:var(--accent-dk) !important; }
+
+  /* ── HAMBURGER MENU ── */
+  .menu-toggle { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:0.5rem; }
+  .menu-toggle span { width:24px; height:2px; background:var(--text); border-radius:2px; transition:all .3s ease; }
+  .menu-toggle.active span:nth-child(1) { transform:rotate(45deg) translate(8px,8px); }
+  .menu-toggle.active span:nth-child(2) { opacity:0; }
+  .menu-toggle.active span:nth-child(3) { transform:rotate(-45deg) translate(7px,-7px); }
 
   /* ── HERO ── */
   .hero {
@@ -255,27 +265,58 @@
 
   /* ── MOBILE ── */
   @media(max-width:768px){
-    nav{padding:1rem 1.5rem;}
-    .nav-links{display:none;}
-    .hero{padding:6rem 1.5rem 4rem;}
-    .hero-inner{grid-template-columns:1fr;}
+    * { max-width: 100%; }
+    body { width: 100%; overflow-x: hidden; }
+    nav{padding:1rem 1.5rem; width:100%;}
+    .menu-toggle{display:flex;}
+    .nav-links{position:absolute; top:100%; left:0; right:0; background:rgba(251,246,243,0.98); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); flex-direction:column; gap:0; list-style:none; max-height:0; overflow:hidden; transition:max-height .3s ease; padding:0; margin:0;}
+    .nav-links.active{max-height:500px; padding:1.5rem;}
+    .nav-links li{margin-bottom:1rem;}
+    .nav-links li:last-child{margin-bottom:0;}
+    .nav-links a{display:block; padding:0.75rem 0; color:var(--text); font-size:0.95rem;}
+    .nav-links a.nav-btn{background:var(--accent) !important; color:#fff !important; padding:0.75rem 1.5rem; border-radius:6px; display:inline-block; margin-top:0.5rem;}
+    .hero{padding:5.5rem 1.5rem 3rem; min-height:auto; width:100%; overflow:hidden;}
+    .hero h1{font-size:clamp(2rem,6vw,3.5rem);}
+    .hero-desc{font-size:0.95rem; max-width:100%;}
+    .hero-inner{grid-template-columns:1fr; gap:2rem;}
     .hero-right{display:none;}
-    .stats-bar{grid-template-columns:1fr 1fr;}
-    .stat-box{border-right:none;border-bottom:1px solid var(--border);padding:2rem 1.5rem;}
-    .sec,.sec-alt,.sec-dark,.sec-navy{padding:4rem 1.5rem;}
-    .ecom-inner{grid-template-columns:1fr;gap:3rem;}
+    .hero-actions{flex-wrap:wrap;}
+    .hero-actions a{min-width:0; display:flex; justify-content:center;}
+    .hero-actions .btn-blue,
+    .hero-actions .btn-ghost-w{flex:1 1 100%;}
+    .hero-actions .btn-ghost-w{text-align:center;}
+    .glow1{width:300px; height:300px; top:-80px; right:-100px; left:auto;}
+    .glow2{width:250px; height:250px; bottom:-120px; left:auto; right:-80px;}
+    .stats-bar{grid-template-columns:repeat(2,1fr); width:100%; justify-items:center;}
+    .stat-box{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.4rem 1rem; width:100%; max-width:100%;}
+    .stat-box:nth-child(2), .stat-box:nth-child(4){border-right:none;}
+    .stat-box:nth-child(3), .stat-box:nth-child(4){border-bottom:none;}
+    .stat-num{font-size:2.2rem;}
+    .stat-lbl{font-size:.78rem;}
+    .sec,.sec-alt,.sec-dark,.sec-navy{padding:4rem 1.2rem; width:100%;}
+    .ecom-inner{grid-template-columns:1fr;gap:2.5rem;}
+    .ecom-grid{grid-template-columns:repeat(2,1fr); gap:1px;}
+    .ecom-box{padding:1.4rem;}
+    .ecom-box .num{font-size:1.8rem;}
+    .ecom-box .lbl{font-size:.76rem;}
     .svc-grid{grid-template-columns:1fr;}
     .callout{grid-column:span 1;grid-template-columns:1fr;gap:1.5rem;}
-    .why-grid{grid-template-columns:1fr;gap:3rem;}
-    .why-right{grid-template-columns:1fr 1fr;}
-    .price-grid{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;gap:2rem;}
+    .why-right{grid-template-columns:repeat(2,1fr); gap:1rem;}
+    .why-box{padding:0.5rem;}
+    .why-box .num{font-size:2rem;}
+    .why-box .lbl{font-size:.74rem;}
+    .price-grid{grid-template-columns:1fr; justify-items:center; gap:1rem; width:100%;}
+    .price-card{width:100%; max-width:100%; margin:0 auto; box-sizing:border-box; padding:0.5rem}
+    .price-card .price-amount,.price-card .price-desc,.price-card .price-features{width:100%;}
+    .price-card .price-amount{overflow-wrap:break-word;}
     .p-steps{grid-template-columns:1fr 1fr;gap:2rem;}
     .p-steps::before{display:none;}
     .contact-grid{grid-template-columns:1fr;gap:3rem;}
     .form-row{grid-template-columns:1fr;}
-    .cta{padding:5rem 1.5rem;}
+    .cta{padding:5rem 1.5rem; width:100%;}
     .cta-btns{flex-direction:column;align-items:center;}
-    footer{flex-direction:column;gap:1.5rem;text-align:center;padding:2rem 1.5rem;}
+    footer{flex-direction:column;gap:1.5rem;text-align:center;padding:2rem 1.5rem; width:100%;}
     .f-links{flex-wrap:wrap;justify-content:center;}
   }
 </style>
@@ -285,7 +326,12 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="logo">Phi<span>on</span></a>
-  <ul class="nav-links">
+  <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <ul class="nav-links" id="nav-menu">
     <li><a href="#services">Services</a></li>
     <li><a href="#ecommerce">E-Commerce</a></li>
     <li><a href="#pricing">Pricing</a></li>
@@ -654,6 +700,25 @@
 </footer>
 
 <script>
+  // Hamburger menu toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  const navLinks = navMenu.querySelectorAll('a');
+
+  menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('active');
+    navMenu.classList.toggle('active');
+  });
+
+  // Close menu when link is clicked
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      menuToggle.classList.remove('active');
+      navMenu.classList.remove('active');
+    });
+  });
+
+  // Intersection observer for reveal animations
   const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('in'); }), {threshold:0.1});
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
