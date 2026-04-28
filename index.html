@@ -645,33 +645,59 @@
     </div>
     <div class="reveal">
       <div class="form">
-        <div class="form-row">
-          <div class="form-grp"><label>Full Name</label><input type="text" placeholder="Ahmad Razif"></div>
-          <div class="form-grp"><label>Phone / WhatsApp</label><input type="text" placeholder="+60 12-345 6789"></div>
-        </div>
-        <div class="form-grp"><label>Business / Store Name</label><input type="text" placeholder="Your Store / Company Sdn Bhd"></div>
-        <div class="form-grp">
-          <label>Selling Platform</label>
-          <select>
-            <option>Shopee</option>
-            <option>Lazada</option>
-            <option>TikTok Shop / TikTok Live</option>
-            <option>WooCommerce / Own Website</option>
-            <option>Multiple Platforms</option>
-            <option>Not an online seller (SME)</option>
-          </select>
-        </div>
-        <div class="form-grp">
-          <label>Monthly Revenue (approx)</label>
-          <select>
-            <option>Below RM10,000</option>
-            <option>RM10,000 – RM50,000</option>
-            <option>RM50,000 – RM200,000</option>
-            <option>RM200,000+</option>
-          </select>
-        </div>
-        <div class="form-grp"><label>Message (optional)</label><textarea placeholder="Tell us about your business and what you need help with..."></textarea></div>
-        <button class="btn-blue" style="width:100%;padding:1.1rem;font-size:1rem;border-radius:6px;" onclick="alert('Thank you! We will WhatsApp you within 24 hours.')">Send Enquiry →</button>
+        <form action="https://formsubmit.co/mfahmijaafar@gmail.com" method="POST">
+          <div class="form-row">
+            <div class="form-grp">
+              <label>Full Name</label>
+              <input type="text" name="name" placeholder="Ahmad Razif" required>
+            </div>
+
+            <div class="form-grp">
+              <label>Phone / WhatsApp</label>
+              <input type="text" name="phone" placeholder="+60 12-345 6789" required>
+            </div>
+          </div>
+
+          <div class="form-grp">
+            <label>Business / Store Name</label>
+            <input type="text" name="business" placeholder="Your Store / Company Sdn Bhd">
+          </div>
+
+          <div class="form-grp">
+            <label>Selling Platform</label>
+            <select name="platform">
+              <option>Shopee</option>
+              <option>Lazada</option>
+              <option>TikTok Shop / TikTok Live</option>
+              <option>WooCommerce / Own Website</option>
+              <option>Multiple Platforms</option>
+              <option>Not an online seller (SME)</option>
+            </select>
+          </div>
+
+          <div class="form-grp">
+            <label>Monthly Revenue (approx)</label>
+            <select name="revenue">
+              <option>Below RM10,000</option>
+              <option>RM10,000 – RM50,000</option>
+              <option>RM50,000 – RM200,000</option>
+              <option>RM200,000+</option>
+            </select>
+          </div>
+
+          <div class="form-grp">
+            <label>Message</label>
+            <textarea name="message" placeholder="Tell us about your business..."></textarea>
+          </div>
+
+          <!-- Optional settings -->
+          <input type="hidden" name="_subject" value="New Enquiry from Website">
+          <input type="hidden" name="_captcha" value="false">
+
+          <button type="submit" class="btn-blue" style="width:100%;padding:1.1rem;font-size:1rem;border-radius:6px;margin-top:1rem;">
+            Send Enquiry →
+          </button>
+        </form>
       </div>
     </div>
   </div>
